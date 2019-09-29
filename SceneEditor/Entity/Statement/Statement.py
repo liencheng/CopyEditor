@@ -12,19 +12,15 @@ class Statement:
     def GetParams(self):
         return self._params
 
-    def Print(self):
+    def print(self):
         output = self._name +"("
-        bFirst = True
+        b_first = True
         for key in self._params.keys():
-            if (bFirst == True):
+            if b_first:
                 output = output + str(self._params[key])
+                b_first = False
             else:
-                output = output + "," + str(self.__params[key])
-        print("name")
+                output = output + "," + str(self._params[key])
+        output = output + ")"
+        print(output)
 
-class DE_CallBack(Statement):
-    callback = ""
-
-    def __init__(self, name, paramsDict, callback):
-        self.callback = callback
-        super.__init__(self, name, paramsDict)

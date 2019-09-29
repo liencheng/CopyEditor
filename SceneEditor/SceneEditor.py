@@ -16,7 +16,6 @@ class SceneEditor:
     def InitCopyScript(self, scriptid, name, type):
         if type == ScriptType.T_BASE:
             self.m_copyScript = CopyScene(scriptid, name)
-
         if type == ScriptType.T_COMMON:
             self.m_copyScript = CopySceneNormal(scriptid, name)
 
@@ -50,7 +49,7 @@ if __name__ == "__main__":
     funEntity = Function("OnCopySceneNpcDie", funArgs)
     cEntity.AddFunc(funEntity)
 
-    doArgs = {"arg1": 1}
+    doArgs = {"arg1": 1, "arg2": 2}
     doEntity = Statement("_FuncTest", doArgs)
-    funEntity.AddDoEntity(doEntity)
+    funEntity.add_statement(doEntity)
     editor.PrintScript()
