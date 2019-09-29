@@ -1,7 +1,10 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from Entity.CopyScript.ScriptBase import CopyScript
 from Entity.CopyScript.Script_Common import CopyScript_Common
 from Entity.Function.FunBase import FunctionEntity
 from Entity.Executor.ExeBase import DoEntity
+import Entity.Executor.ExeBase
 
 class PwrdSceneEditor:
     m_copyScript = ""
@@ -20,9 +23,7 @@ class PwrdSceneEditor:
         print("--start,脚本编辑器")
         self.m_copyScript.Print()
 
-
-
-if __name__ =="__main__":
+if __name__=="__main__":
     editor = PwrdSceneEditor()
     editor.InitCopyScript(1000, "s1000", 1)
     cEntity = editor.GetCopyScript()

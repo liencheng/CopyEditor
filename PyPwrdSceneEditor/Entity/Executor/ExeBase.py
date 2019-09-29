@@ -18,9 +18,9 @@ class DoEntity:
         bFirst = True
         for key in self._params.keys():
             if (bFirst == True):
-                output = output + self._params[key]
+                output = output + str(self._params[key])
             else:
-                output = output + "," + self.__params[key]
+                output = output + "," + str(self.__params[key])
         print("name")
 
 class DE_CallBack(DoEntity):
