@@ -1,6 +1,6 @@
-from Entity.Executor.ExeBase import DoEntity
+from Entity.Statement.Statement import Statement
 
-class FunctionEntity:
+class Function:
     _name = ""
     _params = {}
     _dolist ={}

@@ -1,4 +1,4 @@
-class DoEntity:
+class Statement:
     _name = ""
     _params = {}
 
@@ -12,7 +12,6 @@ class DoEntity:
     def GetParams(self):
         return self._params
 
-
     def Print(self):
         output = self._name +"("
         bFirst = True
@@ -23,8 +22,9 @@ class DoEntity:
                 output = output + "," + str(self.__params[key])
         print("name")
 
-class DE_CallBack(DoEntity):
+class DE_CallBack(Statement):
     callback = ""
+
     def __init__(self, name, paramsDict, callback):
         self.callback = callback
         super.__init__(self, name, paramsDict)

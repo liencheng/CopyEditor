@@ -1,9 +1,9 @@
 
-class CopyScript:
+class CopyScene:
     _scriptid = 0
     _name = []
-    
     _desc = ""
+
     def __init__(self, scriptid, name):
         self._name = name
         self._scriptid = scriptid
@@ -21,8 +21,5 @@ class CopyScript:
         for des in self._desc:
             print("--" + des)
 
-
-    
-    
     def Print(self):
-        print("CopyScript")
+        print("CopyScene")
