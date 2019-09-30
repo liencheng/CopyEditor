@@ -24,6 +24,7 @@ class SceneEditor:
         self.m_copyScript.Print()
 
 
+#添加注释
 if __name__ == "__main__":
     editor = SceneEditor()
     editor.InitCopyScript(1000, "s1000", ScriptType.T_COMMON)
