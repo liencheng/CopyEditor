@@ -32,23 +32,23 @@ if __name__ == "__main__":
     
     funArgs = {"arg1": "eplase"}
     funEntity = Function("OnCopySceneTick", funArgs)
-    cEntity.AddFunc(funEntity)
+    cEntity.add_function(funEntity)
 
     funArgs = {"arg1": "obj"}
     funEntity = Function("OnCopyScenePlayerEnter", funArgs)
-    cEntity.AddFunc(funEntity)
+    cEntity.add_function(funEntity)
 
     funArgs = {"arg1": "obj"}
     funEntity = Function("OnCopyScenePlayerLevel", funArgs)
-    cEntity.AddFunc(funEntity)
+    cEntity.add_function(funEntity)
 
     funArgs = {"arg1": "obj"}
     funEntity = Function("OnCopyScenePlayerDie", funArgs)
-    cEntity.AddFunc(funEntity)
+    cEntity.add_function(funEntity)
 
     funArgs = {"arg1": "obj"}
     funEntity = Function("OnCopySceneNpcDie", funArgs)
-    cEntity.AddFunc(funEntity)
+    cEntity.add_function(funEntity)
 
     doArgs = {"arg1": 1, "arg2": 2}
     doEntity = Statement("_FuncTest", doArgs)
