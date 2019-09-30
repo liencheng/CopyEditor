@@ -13,9 +13,10 @@ class CopySceneNormal(CopyScene):
 
     def Print(self):
         print("--Start:CopySceneNormal")
-        CopyScene._PrintDesc(self)
+        self._PrintDesc()
+        self.print_variable()
         for k, v in self.__funList.items():
-            v.Print(self.__script_id)
+            v.Print(self._script_id)
 
 
 def test():

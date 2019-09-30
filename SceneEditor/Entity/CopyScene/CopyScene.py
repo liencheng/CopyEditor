@@ -3,14 +3,14 @@ from Entity.Variable.Variable.Variable import Variable
 
 class CopyScene:
 
-    __script_id = 0
+    _script_id = 0
     __name = ""
     __desc = ""
     __variable_list = []
 
     def __init__(self, scriptid, name):
         self.__name = name
-        self.__script_id = scriptid
+        self._script_id = scriptid
 
     def add_variable(self, var: bool):
         self.__variable_list.append(var)
@@ -19,7 +19,7 @@ class CopyScene:
         return self.__variable_list
 
     def GetScriptId(self):
-        return self.__script_id
+        return self._script_id
 
     def GetName(self):
         return self.__name
@@ -36,5 +36,5 @@ class CopyScene:
 
     def print_variable(self):
         for i in self.__variable_list:
-            i.print(self.__script_id)
+            i.print(self._script_id)
 

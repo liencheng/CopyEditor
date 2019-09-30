@@ -5,6 +5,7 @@ from Entity.CopyScene.CopySceneNormal import CopySceneNormal
 from Entity.Function.Function import Function
 from Entity.Statement.Statement import Statement
 from Define.EditorDefine import ScriptType
+from Entity.Variable.Variable.Variable import *
 
 
 class SceneEditor:
@@ -29,7 +30,10 @@ if __name__ == "__main__":
     editor = SceneEditor()
     editor.InitCopyScript(1000, "s1000", ScriptType.T_COMMON)
     cEntity = editor.GetCopyScript()
-    
+
+    var_int_test = CSInt("test")
+    cEntity.add_variable(var_int_test)
+
     funArgs = {"arg1": "eplase"}
     funEntity = Function("OnCopySceneTick", funArgs)
     cEntity.add_function(funEntity)

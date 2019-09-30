@@ -31,7 +31,9 @@ def build_local_var_number(script_id, name):
 def build_variable(script_id, var_type, var_name, default_value):
     func = fun_factory.get(var_type)
     if func:
-        func(script_id, var_name)
+        return func(script_id, var_name)
+
+    return "info:build_variable error"
 
 def build_block_for(items):
     """
@@ -59,5 +61,8 @@ def init():
     register_factory()
 
 
-if b_init:
+if ~b_init:
     init()
+    print("hello variableutile.py init.")
+
+print("hello variableutile.py")
