@@ -5,28 +5,36 @@ from Define.EditorDefine import VarType
 b_init: bool = False
 fun_factory = {}
 
+
 def build_local_var_table(script_id, name):
     ret = "local" + " " + str(script_id) + name + "={}"
     return ret
 
+
 def build_local_var_simple(script_id, name):
-    ret = "local" + " " + str(script_id) + name
+    ret = "local" + " " + str(script_id) + "_" + name
     return ret
+
 
 def build_local_var_string(script_id, name):
     return build_local_var_simple(script_id, name)
 
+
 def build_local_var_double(script_id, name):
     return build_local_var_simple(script_id, name)
+
 
 def build_local_var_float(script_id, name):
     return build_local_var_simple(script_id, name)
 
+
 def build_local_var_int(script_id, name):
     return build_local_var_simple(script_id, name)
 
+
 def build_local_var_number(script_id, name):
     return build_local_var_simple(script_id, name)
+
 
 def build_variable(script_id, var_type, var_name, default_value):
     func = fun_factory.get(var_type)
@@ -34,6 +42,13 @@ def build_variable(script_id, var_type, var_name, default_value):
         return func(script_id, var_name)
 
     return "info:build_variable error"
+
+
+def build_variable_default(var_name, default_value):
+    ret = ""
+    ret = ret + var_name + "=" + str(default_value)
+    return ret
+
 
 def build_block_for(items):
     """
@@ -45,8 +60,10 @@ def build_block_for(items):
     """
     pass
 
+
 def register(value_type, func):
     fun_factory[value_type] = func
+
 
 def register_factory():
     register(VarType.T_TABLE, build_local_var_table)

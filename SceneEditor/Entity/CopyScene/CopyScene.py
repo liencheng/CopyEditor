@@ -12,8 +12,9 @@ class CopyScene:
         self.__name = name
         self._script_id = scriptid
 
-    def add_variable(self, var: bool):
+    def add_variable(self, var: Variable):
         self.__variable_list.append(var)
+
 
     def get_variable(self):
         return self.__variable_list
@@ -27,7 +28,7 @@ class CopyScene:
     def AddDesc(self, desc):
         self.__name.append(desc)
    
-    def _PrintDesc(self):
+    def print_comment(self):
         for des in self.__desc:
             print("--" + des)
 

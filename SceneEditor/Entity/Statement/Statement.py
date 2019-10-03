@@ -6,7 +6,7 @@ class Statement:
         self._name = name
         self._params= paramsDict
 
-    def GetName(self):
+    def get_name(self):
         return self._name
 
     def GetParams(self):
