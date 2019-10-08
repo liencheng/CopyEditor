@@ -2,20 +2,16 @@ from Entity.CopyScene.CopyScene import CopyScene
 from Entity.Function.Function import Function
 
 class CopySceneNormal(CopyScene):
-    #方法执行
-    __funList = {}
 
     def __init__(self, scriptid, name):
         CopyScene.__init__(self, scriptid, name)
 
-    def add_function(self, funcEntity):
-        self.__funList[funcEntity.GetName()] = funcEntity
-
-    def Print(self):
+    def print(self):
         print("--Start:CopySceneNormal")
+        self.pre_process_fsm()
         self.print_comment()
         self.print_variable()
-        for k, v in self.__funList.items():
+        for k, v in self.get_function_list().items():
             v.Print(self._script_id)
 
 

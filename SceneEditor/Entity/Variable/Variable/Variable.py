@@ -48,9 +48,9 @@ class CSDouble(CSNumberal):
 
 class CSString(Variable):
     def __init__(self, name):
-        Variable.__init__(self, name, VarType.T_STRING, "")
+        Variable.__init__(self, name, VarType.T_STRING, "\"\"")
 
 
 class CSTable(Variable):
     def __init__(self, name):
-        Variable.__init__(self, name, VarType.T_TABLE, "")
+        Variable.__init__(self, name, VarType.T_TABLE, {})

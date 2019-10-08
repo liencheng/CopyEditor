@@ -8,6 +8,7 @@ from Entity.Statement.Statement import Statement
 from Entity.Statement.StatementAssignment import StatementAssignment
 from Define.EditorDefine import ScriptType
 from Entity.Variable.Variable.Variable import *
+from Entity.FSM.FSMachine import FSMachine
 
 
 class SceneEditor:
@@ -24,7 +25,7 @@ class SceneEditor:
 
     def PrintScript(self):
         print("--start,脚本编辑器")
-        self.m_copyScript.Print()
+        self.m_copyScript.print()
 
 
 # 添加注释
@@ -74,5 +75,14 @@ if __name__ == "__main__":
     doArgs = {}
     do_entity = Statement("CleanData", doArgs)
     funEntityOpen.add_statement(do_entity)
+
+    fsm = FSMachine(cEntity)
+    "增加三种状态"
+    fsm.add_machine_state()
+    fsm.add_machine_state()
+    fsm.add_machine_state()
+    fsm.refresh_machine_func()
+
+    cEntity.set_fsm(fsm)
 
     editor.PrintScript()

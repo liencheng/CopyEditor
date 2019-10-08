@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from Entity.Function.Function import Function
-from Entity.CopyScene.CopyScene import CopyScene
-from Entity.CopyScene.CopySceneNormal import CopySceneNormal
 from Entity.Variable.Variable.Variable import *
 
 """
@@ -40,7 +38,8 @@ end
 """
 
 str_machine_format = "OnStart = {0}, OnTick = {1}, OnEnd = {2},"
-var_machine_data = Variable("MachineData", VarType.T_TABLE, {})
+var_machine_data_name = "MachineData"
+var_machine_data = Variable(var_machine_data_name, VarType.T_TABLE, {})
 var_machine_state = Variable("machine_state", VarType.T_INT, 0)
 
 
@@ -59,6 +58,7 @@ class FSMachine:
         self.__func_list = []
         self.__variable_list = []
         self.__copy_scene = copy_scene
+        self.init_machine()
 
     def init_machine(self):
         self.__variable_list.append(var_machine_data)
@@ -72,6 +72,7 @@ class FSMachine:
 
     def add_machine_state(self):
         self.__state_max = self.__state_max + 1
+        self.refresh_machine_func()
 
     def refresh_machine_func(self):
         self.__func_list = []
@@ -96,12 +97,13 @@ class FSMachine:
             self.__func_list.append(tick_func)
 
     def print_fsm_body(self):
-        print("MachineData = {")
+        print(var_machine_data_name)
+        print("= {")
         for i in range(self.__state_max):
             start_name = build_func_name("OnStart", i)
             tick_name = build_func_name("OnTick", i)
             end_name = build_func_name("OnEnd", i)
-            print(str_machine_format, start_name, tick_name, end_name)
+            print(str_machine_format.format(start_name, tick_name, end_name))
         print("}")
 
 
