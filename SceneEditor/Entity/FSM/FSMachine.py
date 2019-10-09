@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from Entity.Function.Function import Function
+from Entity.Statement.Statement import *
 from Entity.Variable.Variable.Variable import *
 from Utils.NameUtils import *
 
@@ -84,15 +85,32 @@ class FSMachine:
         if self.__state_max <= 0:
             return
 
+        onstart_fun = Function(encode_func_name(self.__script_id, "OnStart"), {})
+        onend_fun = Function(encode_func_name(self.__script_id, "OnEnd"), {})
+        ontick_fun = Function(encode_func_name(self.__script_id, "OnTick"), {"0": "elapse"}, {})
+        self.__func_list.append(onstart_fun)
+        self.__func_list.append(onend_fun)
+        self.__func_list.append(ontick_fun)
+
         register_fsm_fun = Function(encode_func_name(self.__script_id, "RegisterFSMachine"),
                                     {},
                                     self.fun_body_of_register_fsm)
         self.__func_list.append(register_fsm_fun)
-        change_next_state_fun = Function(encode_func_name(self.__script_id, "Change2NextState"),
+
+
+        inc_fsm_state_fun = Function(encode_func_name(self.__script_id, "IncFsmState"),
                                          {},
                                          self.fun_body_of_change_2_next_state)
+        self.__func_list.append(inc_fsm_state_fun)
 
-        self.__func_list.append(change_next_state_fun)
+        change_2_next_state_fuc = Function(encode_func_name(self.__script_id, "Change2NextState"))
+        inc_fsm_state_statement = Statement(inc_fsm_state_fun.GetName(), {})
+        onstart_statement = Statement(onstart_fun.GetName(), {})
+        onend_statement = Statement(onend_fun.GetName(), {})
+        change_2_next_state_fuc.add_statement(onstart_statement)
+        change_2_next_state_fuc.add_statement(inc_fsm_state_statement)
+        change_2_next_state_fuc.add_statement(onend_statement)
+        self.__func_list.append(change_2_next_state_fuc)
 
         for i in range(self.__state_max):
             start_name = build_func_name(self.__script_id, "OnStart", i)
