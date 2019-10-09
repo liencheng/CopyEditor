@@ -9,6 +9,7 @@ from Entity.Statement.StatementAssignment import StatementAssignment
 from Define.EditorDefine import ScriptType
 from Entity.Variable.Variable.Variable import *
 from Entity.FSM.FSMachine import FSMachine
+from Utils.NameUtils import *
 
 
 class SceneEditor:
@@ -47,6 +48,7 @@ if __name__ == "__main__":
     cEntity.add_variable(var_table_test)
 
     funArgs = {"arg1": "eplase"}
+
     funEntityTick = Function("OnCopySceneTick", funArgs)
     cEntity.add_function(funEntityTick)
 
@@ -76,7 +78,7 @@ if __name__ == "__main__":
     do_entity = Statement("CleanData", doArgs)
     funEntityOpen.add_statement(do_entity)
 
-    fsm = FSMachine(cEntity)
+    fsm = FSMachine(1000)
     "增加三种状态"
     fsm.add_machine_state()
     fsm.add_machine_state()

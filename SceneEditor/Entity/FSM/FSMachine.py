@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from Entity.Function.Function import Function
 from Entity.Variable.Variable.Variable import *
+from Utils.NameUtils import *
 
 """
 副本状态机
@@ -43,21 +44,24 @@ var_machine_data = Variable(var_machine_data_name, VarType.T_TABLE, {})
 var_machine_state = Variable("machine_state", VarType.T_INT, 0)
 
 
-def build_func_name(pre_name, index):
-    return pre_name + "_" + str(index)
+def build_func_name(script_id, pre_name, index):
+    ret = pre_name + "_" + str(index)
+    return encode_func_name(script_id, ret)
+
+
 
 
 class FSMachine:
     __state_max: int = 0
     __func_list = []
     __variable_list = []
-    __copy_scene = object()
+    __script_id = 0
 
-    def __init__(self, copy_scene):
+    def __init__(self, script_id):
         self.__state_max = 0
         self.__func_list = []
         self.__variable_list = []
-        self.__copy_scene = copy_scene
+        self.__script_id = script_id
         self.init_machine()
 
     def init_machine(self):
@@ -80,15 +84,22 @@ class FSMachine:
         if self.__state_max <= 0:
             return
 
-        register_fsm_fun = Function("RegisterFSMachine", {}, self.print_fsm_body)
+        register_fsm_fun = Function(encode_func_name(self.__script_id, "RegisterFSMachine"),
+                                    {},
+                                    self.fun_body_of_register_fsm)
         self.__func_list.append(register_fsm_fun)
+        change_next_state_fun = Function(encode_func_name(self.__script_id, "Change2NextState"),
+                                         {},
+                                         self.fun_body_of_change_2_next_state)
+
+        self.__func_list.append(change_next_state_fun)
 
         for i in range(self.__state_max):
-            start_name = build_func_name("OnStart", i)
+            start_name = build_func_name(self.__script_id, "OnStart", i)
             start_func = Function(start_name)
-            end_name = build_func_name("OnEnd", i)
+            end_name = build_func_name(self.__script_id, "OnEnd", i)
             end_func = Function(end_name)
-            tick_name = build_func_name("OnTick", i)
+            tick_name = build_func_name(self.__script_id, "OnTick", i)
             params = {"p0": "elapse"}
             tick_func = Function(tick_name, params)
 
@@ -96,14 +107,21 @@ class FSMachine:
             self.__func_list.append(end_func)
             self.__func_list.append(tick_func)
 
-    def print_fsm_body(self):
+    def fun_body_of_register_fsm(self):
         print(var_machine_data_name)
         print("= {")
         for i in range(self.__state_max):
-            start_name = build_func_name("OnStart", i)
-            tick_name = build_func_name("OnTick", i)
-            end_name = build_func_name("OnEnd", i)
+            start_name = build_func_name(self.__script_id, "OnStart", i)
+            tick_name = build_func_name(self.__script_id, "OnTick", i)
+            end_name = build_func_name(self.__script_id, "OnEnd", i)
             print(str_machine_format.format(start_name, tick_name, end_name))
         print("}")
+
+    def fun_body_of_change_2_next_state(self):
+        name = var_machine_state.get_name()
+        ret = name + " = "
+        ret = ret + name
+        ret = ret + "+ 1"
+        print(ret)
 
 

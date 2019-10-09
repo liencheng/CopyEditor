@@ -16,8 +16,8 @@ class Function:
     def GetName(self):
         return self._name
 
-    def add_statement(self, doEntity):
-        self.__statement_list.append(doEntity)
+    def add_statement(self, statement):
+        self.__statement_list.append(statement)
 
     def GetParams(self):
         return self._params
@@ -26,9 +26,9 @@ class Function:
         print("")
         print("--")
 
-    def Print(self, scriptid):
+    def print(self):
         self._PrintComment()
-        fheader_pre = "function " + str(scriptid) + "_" + self._name + "("
+        fheader_pre = "function " + self._name + "("
         fheader_fix = ")"
         f_ender = "end"
 

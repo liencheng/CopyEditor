@@ -12,6 +12,6 @@ class CopySceneNormal(CopyScene):
         self.print_comment()
         self.print_variable()
         for k, v in self.get_function_list().items():
-            v.Print(self._script_id)
+            v.print()
 
 
