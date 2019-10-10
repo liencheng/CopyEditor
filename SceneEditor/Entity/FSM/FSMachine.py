@@ -43,13 +43,15 @@ str_machine_format = "OnStart = {0}, OnTick = {1}, OnEnd = {2},"
 var_machine_data_name = "MachineData"
 var_machine_data = Variable(var_machine_data_name, VarType.T_TABLE, {})
 var_machine_state = Variable("machine_state", VarType.T_INT, 0)
+str_onstart_func_format = "if nil ~= {0}.[{1}] and nil ~= {2}.[{3}].OnStart then"
+str_onend_func_format = "if nil ~= {0}.[{1}] and nil ~= {2}.[{3}].OnEnd then"
+str_ontick_func_format = 'if nil ~= {0}.[{1}] and nil ~= {2}.[{3}].OnTick then'
+
 
 
 def build_func_name(script_id, pre_name, index):
     ret = pre_name + "_" + str(index)
     return encode_func_name(script_id, ret)
-
-
 
 
 class FSMachine:
@@ -97,19 +99,18 @@ class FSMachine:
                                     self.fun_body_of_register_fsm)
         self.__func_list.append(register_fsm_fun)
 
-
         inc_fsm_state_fun = Function(encode_func_name(self.__script_id, "IncFsmState"),
-                                         {},
-                                         self.fun_body_of_change_2_next_state)
+                                     {},
+                                     self.fun_body_of_change_2_next_state)
         self.__func_list.append(inc_fsm_state_fun)
 
         change_2_next_state_fuc = Function(encode_func_name(self.__script_id, "Change2NextState"))
         inc_fsm_state_statement = Statement(inc_fsm_state_fun.GetName(), {})
         onstart_statement = Statement(onstart_fun.GetName(), {})
         onend_statement = Statement(onend_fun.GetName(), {})
-        change_2_next_state_fuc.add_statement(onstart_statement)
-        change_2_next_state_fuc.add_statement(inc_fsm_state_statement)
         change_2_next_state_fuc.add_statement(onend_statement)
+        change_2_next_state_fuc.add_statement(inc_fsm_state_statement)
+        change_2_next_state_fuc.add_statement(onstart_statement)
         self.__func_list.append(change_2_next_state_fuc)
 
         for i in range(self.__state_max):
@@ -142,4 +143,16 @@ class FSMachine:
         ret = ret + "+ 1"
         print(ret)
 
+    """
+    if nil ~= MachineData[state] and nil ~= MachineData[State].OnStart then
+        MachineData[State].OnStart()
+    end
+    """
+    def fun_body_of_on_start(self):
+        pass
 
+    def fun_body_of_on_end(self):
+        pass
+
+    def fun_body_of_on_tick(self):
+        pass
