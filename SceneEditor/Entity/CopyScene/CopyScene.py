@@ -57,7 +57,7 @@ class CopyScene:
 
     def print_variable(self):
         for i in self.__variable_list:
-            i.print(self._script_id)
+            i.print()
 
     def pre_process_fsm(self):
         if self.__fsm:

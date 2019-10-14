@@ -1,5 +1,5 @@
 from Entity.Statement.Statement import Statement
-
+from Entity.SEData import *
 
 class Function:
     _name = ""
@@ -8,7 +8,7 @@ class Function:
     __body_func_callback = object()
 
     def __init__(self, name, params_dict={}, body_func_callback=object()):
-        self._name = name
+        self._name = wrap_name(name)
         self._params = params_dict
         self.__statement_list = []
         self.__body_func_callback = body_func_callback

@@ -9,10 +9,10 @@ class Statement:
     def get_name(self):
         return self._name
 
-    def GetParams(self):
+    def get_params(self):
         return self._params
 
-    def print(self):
+    def get_text(self):
         output = self._name +"("
         b_first = True
         for key in self._params.keys():
@@ -22,5 +22,9 @@ class Statement:
             else:
                 output = output + "," + str(self._params[key])
         output = output + ")"
+        return output
+
+    def print(self):
+        output = self.get_text()
         print(output)
 

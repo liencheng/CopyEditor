@@ -10,6 +10,7 @@ from Define.EditorDefine import ScriptType
 from Entity.Variable.Variable.Variable import *
 from Entity.FSM.FSMachine import FSMachine
 from Utils.NameUtils import *
+from Entity.SEData import *
 
 
 class SceneEditor:
@@ -19,6 +20,7 @@ class SceneEditor:
         return self.m_copyScript
 
     def InitCopyScript(self, scriptid, name, type):
+        set_script_id(scriptid)
         if type == ScriptType.T_BASE:
             self.m_copyScript = CopyScene(scriptid, name)
         if type == ScriptType.T_COMMON:
@@ -44,8 +46,11 @@ if __name__ == "__main__":
     var_string_test = CSString("string_test")
     cEntity.add_variable(var_string_test)
 
-    var_table_test = CSTable("table_test")
+    var_table_test = CSTable("player_obj_data")
     cEntity.add_variable(var_table_test)
+
+    var_table_npc = CSTable("npc_obj_data")
+    cEntity.add_variable(var_table_npc)
 
     funArgs = {"arg1": "eplase"}
 
@@ -84,7 +89,7 @@ if __name__ == "__main__":
     fsm.add_machine_state()
     fsm.add_machine_state()
     fsm.refresh_machine_func()
-
     cEntity.set_fsm(fsm)
+
 
     editor.PrintScript()

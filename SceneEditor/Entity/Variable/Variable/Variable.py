@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from Define.EditorDefine import VarType
 import Utils.VariableUtils
+from Entity.SEData import *
 
 
 class Variable:
@@ -10,7 +11,7 @@ class Variable:
     __default = ""
 
     def __init__(self, name, value_type, value_default):
-        self.__name = name
+        self.__name = wrap_name(name)
         self.__type = value_type
         self.__default = value_default
 
@@ -20,8 +21,8 @@ class Variable:
     def default_value(self):
         return self.__default
 
-    def print(self, script_id):
-        ret = Utils.VariableUtils.build_variable(script_id, self.__type, self.__name, self.__default)
+    def print(self):
+        ret = Utils.VariableUtils.build_variable(self.__type, self.__name, self.__default)
         print(ret)
         return ret
 
