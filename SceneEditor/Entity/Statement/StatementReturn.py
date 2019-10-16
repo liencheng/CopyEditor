@@ -13,7 +13,7 @@ class StatementReturn(Statement):
     _var_ret: Variable = None
 
     def __init__(self, b_global, ret_var, statement_name, params):
-        Statement.__init__(statement_name, params)
+        Statement.__init__(self, statement_name, params)
         self._b_global_var = b_global
         self._var_ret = ret_var
 

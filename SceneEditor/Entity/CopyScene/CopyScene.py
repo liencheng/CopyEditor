@@ -1,9 +1,15 @@
 
 from Entity.Variable.Variable.Variable import Variable
-from Entity.FSM.FSMachine import FSMachine
+from Entity.Machine.FSMachine import FSMachine
+
 
 class CopyScene:
-
+    "静态常亮"
+    cs_player_data_name = "player_data"
+    cs_npc_data_name = "npc_data"
+    "静态方法"
+    static_variable_list: Variable = []
+    "成员方法"
     _script_id = 0
     __name = ""
     __desc = ""
@@ -56,6 +62,8 @@ class CopyScene:
         print("CopyScene")
 
     def print_variable(self):
+        for i in CopyScene.static_variable_list:
+            i.print()
         for i in self.__variable_list:
             i.print()
 
@@ -70,4 +78,21 @@ class CopyScene:
             for i in fsm_fun:
                 self.add_function(i)
 
+    @staticmethod
+    def cs_add_variable(var: Variable):
+        CopyScene.static_variable_list.append(var)
+
+    @staticmethod
+    def cs_get_player_data() -> object:
+        for i in CopyScene.static_variable_list:
+            if i.get_raw_name() == CopyScene.cs_player_data_name:
+                return i
+        return None
+
+    @staticmethod
+    def cs_get_npc_data() -> object:
+        for i in CopyScene.static_variable_list:
+            if i.get_raw_name() == CopyScene.cs_npc_data_name:
+                return i
+        return None
 

@@ -7,16 +7,21 @@ from Entity.SEData import *
 
 class Variable:
     __name = ""
+    __raw_name = ""
     __type = -1
     __default = ""
 
     def __init__(self, name, value_type, value_default):
         self.__name = wrap_name(name)
+        self.__raw_name = name
         self.__type = value_type
         self.__default = value_default
 
     def get_name(self):
         return self.__name
+
+    def get_raw_name(self):
+        return self.__raw_name
 
     def default_value(self):
         return self.__default

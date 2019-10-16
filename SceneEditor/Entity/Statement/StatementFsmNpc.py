@@ -16,4 +16,3 @@ class StatementFsmNpc(StatementReturn):
     def __init__(self, statement_name, params):
         ret_var = Variable(fsm_npc_table_name, VarType.T_TABLE, {})
         StatementReturn.__init__(self, True, ret_var, statement_name, params)
-

@@ -1,14 +1,18 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Entity.CopyScene.CopyScene import CopyScene
+from Entity.CopyScene.CopyScene import *
 from Entity.CopyScene.CopySceneNormal import CopySceneNormal
 from Entity.Function.Function import Function
-from Entity.Statement.Statement import Statement
-from Entity.Statement.StatementAssignment import StatementAssignment
+from Entity.Function.FunctionForeachPlayer import *
+from Entity.Statement.Statement import *
+from Entity.Statement.StatementAssignment import *
+from Entity.Statement.StatementFsmNpc import *
+from Entity.Statement.StatementReturn import *
+
 from Define.EditorDefine import ScriptType
 from Entity.Variable.Variable.Variable import *
-from Entity.FSM.FSMachine import FSMachine
+from Entity.Machine.FSMachine import FSMachine
 from Utils.NameUtils import *
 from Entity.SEData import *
 
@@ -46,11 +50,11 @@ if __name__ == "__main__":
     var_string_test = CSString("string_test")
     cEntity.add_variable(var_string_test)
 
-    var_table_test = CSTable("player_obj_data")
-    cEntity.add_variable(var_table_test)
+    var_table_test = CSTable(CopyScene.cs_player_data_name)
+    CopyScene.cs_add_variable(var_table_test)
 
-    var_table_npc = CSTable("npc_obj_data")
-    cEntity.add_variable(var_table_npc)
+    var_table_npc = CSTable(CopyScene.cs_npc_data_name)
+    CopyScene.cs_add_variable(var_table_npc)
 
     funArgs = {"arg1": "eplase"}
 
@@ -60,6 +64,11 @@ if __name__ == "__main__":
     funArgs = {}
     funEntityOpen = Function("OnCopySceneOpen", funArgs)
     cEntity.add_function(funEntityOpen)
+    fsm_npc_statement = StatementFsmNpc("C_CreateNpcWithGroup", {"0": "10001"})
+    cEntity.add_variable(fsm_npc_statement.get_var_ret())
+    funEntityOpen.add_statement(fsm_npc_statement)
+
+
 
     funArgs = {}
     funEntityCD = Function("CleanData", funArgs)
@@ -91,5 +100,13 @@ if __name__ == "__main__":
     fsm.refresh_machine_func()
     cEntity.set_fsm(fsm)
 
+    fe_player = FunctionForeachPlayer()
+    fe_npc = FunctionForeachNpc()
+    sl_player = FunctionSelectPlayer()
+    sl_npc = FunctionSelectNpc()
+    cEntity.add_function(fe_player)
+    cEntity.add_function(fe_npc)
+    cEntity.add_function(sl_npc)
+    cEntity.add_function(sl_player)
 
     editor.PrintScript()

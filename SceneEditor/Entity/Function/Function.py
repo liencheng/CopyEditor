@@ -7,11 +7,14 @@ class Function:
     __statement_list = []
     __body_func_callback = object()
 
-    def __init__(self, name, params_dict={}, body_func_callback=object()):
+    def __init__(self, name, params_dict: object = {}, body_func_callback: object = object()) -> object:
         self._name = wrap_name(name)
         self._params = params_dict
         self.__statement_list = []
         self.__body_func_callback = body_func_callback
+
+    def set_body_callback(self, callback):
+        self.__body_func_callback = callback
 
     def GetName(self):
         return self._name
